@@ -82,7 +82,7 @@ fun Activity.rotateOrientation() = resources.configuration.orientation.let { cur
 }
 
 // Get current activity
-fun getCurrentActivity(): Activity {
+fun getCurrentActivity(): Activity? {
     // The array is just to wrap the Activity and be able to access it from the Runnable.
     val resumedActivity = arrayOfNulls<Activity>(1)
     InstrumentationRegistry.getInstrumentation().runOnMainSync {
@@ -90,7 +90,7 @@ fun getCurrentActivity(): Activity {
         if (resumedActivities.iterator().hasNext()) {
             resumedActivity[0] = resumedActivities.iterator().next();
         } else {
-            throw IllegalStateException("No Activity in stage RESUMED");
+            return null
         }
     }
     return resumedActivity[0]!!
