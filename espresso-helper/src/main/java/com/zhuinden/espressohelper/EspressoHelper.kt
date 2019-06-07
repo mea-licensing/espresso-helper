@@ -88,17 +88,18 @@ fun getCurrentActivity(): Activity? {
     InstrumentationRegistry.getInstrumentation().runOnMainSync {
         val resumedActivities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
         if (resumedActivities.iterator().hasNext()) {
-            resumedActivity[0] = resumedActivities.iterator().next();
-        } else {
-            return null
+            resumedActivity[0] = resumedActivities.iterator().next()
         }
     }
-    return resumedActivity[0]!!
+    if (resumedActivity.isNotEmpty()){
+        return resumedActivity[0]
+    }
+    return null
 }
 
 inline fun <reified T : Activity> checkCurrentActivityIs() {
     val currentActivity = getCurrentActivity()
-    if (!(currentActivity is T)) {
+    if (currentActivity != null && currentActivity !is T) {
         throw IllegalStateException("Activity should be ${T::class.java.simpleName} but was ${currentActivity::class.java.simpleName}")
     }
 }

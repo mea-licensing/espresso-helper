@@ -3,7 +3,7 @@ apply plugin: 'maven-publish'
 
 def libraryGroupId = 'com.meamobile'
 def libraryArtifactId = 'espresso-helper'
-def libraryVersion = '1.0.0'
+def libraryVersion = '1.0.1'
 
 publishing {
     publications {
